@@ -1,0 +1,36 @@
+﻿<Page x:Class="SnapchatDesktop.Pages.LoginPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+      xmlns:local="clr-namespace:SnapchatDesktop.Pages"
+      mc:Ignorable="d"
+      Title="LoginPage" Height="500" Width="700">
+
+    <Page.Resources>
+        <BitmapImage x:Key="LoginGhost" UriSource="/Resources/LoginGhost.png" />
+    </Page.Resources>
+    <Grid>
+        <Grid x:Name="LoginGrid">
+            <Image Source="{DynamicResource LoginGhost}" VerticalAlignment="Top" HorizontalAlignment="Center" Width="200"/>
+            <Label Content="Username" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,290" />
+            <TextBox x:Name="UsernameBox" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Margin="0,0,0,265" Width="150" TextAlignment="Center"/>
+            <Label Content="Password" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,240" />
+            <PasswordBox x:Name="PasswordBox" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Margin="0,0,0,215" Width="150" Height="24" TextBlock.TextAlignment="Center"/>
+            <Button x:Name="LoginButton" HorizontalAlignment="Center" VerticalAlignment="Bottom" Content="Login" Margin="0,0,0,181" Width="150" IsDefault="True" Click="LoginButton_Click"/>
+        </Grid>
+        <controls:ProgressRing x:Name="LoggingInProgressRing" Margin="0,0,0,100" HorizontalAlignment="Center"
+                               VerticalAlignment="Center" IsActive="True" Visibility="Hidden">
+            <controls:ProgressRing.Effect>
+                <DropShadowEffect />
+            </controls:ProgressRing.Effect>
+        </controls:ProgressRing>
+        <Label x:Name="LoggingInLabel" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Logging in..."
+               FontSize="36" FontWeight="Bold" Foreground="#FFDEDCDC" Visibility="Hidden">
+            <Label.Effect>
+                <DropShadowEffect />
+            </Label.Effect>
+        </Label>
+    </Grid>
+</Page>

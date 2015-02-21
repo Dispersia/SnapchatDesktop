@@ -7,6 +7,10 @@ Desktop.ini
 
 # Recycle Bin used on file shares
 $RECYCLE.BIN/
+/packages/
+/SnapchatDesktop.sln.ide/
+/SnapchatDesktop/bin/
+/SnapchatDesktop/obj/
 
 # Windows Installer files
 *.cab
