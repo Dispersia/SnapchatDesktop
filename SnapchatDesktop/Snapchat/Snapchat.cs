@@ -11,15 +11,21 @@ namespace SnapchatDesktop.Snapchat
     {
         public Snapchat()
         {
-            var resultObjects = AllChildren(JObject.Parse(Client.ResponseString))
-            .First(c => c.Type == JTokenType.Array && c.Path.Contains("friends"))
-            .Children<JObject>();
-
-            foreach (JObject result in resultObjects)
+            if (!Client.ResponseString.Contains("\"logged\":false"))
             {
-                FriendsList.Add(JsonConvert.DeserializeObject<Friend>(result.ToString()));
+                var resultObjects = AllChildren(JObject.Parse(Client.ResponseString))
+                    .First(c => c.Type == JTokenType.Array && c.Path.Contains("friends"))
+                    .Children<JObject>();
+
+                foreach (JObject result in resultObjects)
+                {
+                    FriendsList.Add(JsonConvert.DeserializeObject<Friend>(result.ToString()));
+                }
             }
         }
+
+        [InternalName("message")]
+        public string Message { get; set; }
 
         [InternalName("enable_video_transcoding_android")]
         public bool enableVideoTranscodingAndroid { get; set; }

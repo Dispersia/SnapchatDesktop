@@ -88,57 +88,42 @@ namespace SnapchatDesktop
             request.Method = "POST";
             request.UserAgent = User_Agent;
 
-            try
+            using (StreamWriter writer = new StreamWriter(request.GetRequestStream()))
             {
-                using (StreamWriter writer = new StreamWriter(request.GetRequestStream()))
-                {
-                    writer.Write(postBuilder.ToString());
-                }
-
-                using (HttpWebResponse response = request.GetResponse() as HttpWebResponse)
-                {
-
-                    using (Stream rs = response.GetResponseStream())
-                    {
-                        using (MemoryStream ms = new MemoryStream())
-                        {
-                            byte[] buff = new byte[8000];
-                            int count = 0;
-                            int current = 0;
-                            do
-                            {
-                                count = rs.Read(buff, 0, buff.Length);
-                                ms.Write(buff, 0, count);
-                                current += count;
-                            } while (count > 0);
-                            response.Close();
-                            ResponseString = Encoding.UTF8.GetString(ms.ToArray());
-                            MySnapchat = JsonConvert.DeserializeObject<Snapchat.Snapchat>(ResponseString);
-                            using (StreamWriter output = new StreamWriter("data.txt"))
-                            {
-                                output.Write(ResponseString);
-                            }
-                        }
-                    }
-                }
-                return true;
+                writer.Write(postBuilder.ToString());
             }
-            catch (WebException wex)
+
+            using (HttpWebResponse response = request.GetResponse() as HttpWebResponse)
             {
-                if (wex.Response != null)
+
+                using (Stream rs = response.GetResponseStream())
                 {
-                    using (var errorResponse = (HttpWebResponse)wex.Response)
+                    using (MemoryStream ms = new MemoryStream())
                     {
-                        using (var reader = new StreamReader(errorResponse.GetResponseStream()))
+                        byte[] buff = new byte[8000];
+                        int count = 0;
+                        int current = 0;
+                        do
                         {
-                            string error = reader.ReadToEnd();
-                            ResponseString = error;
+                            count = rs.Read(buff, 0, buff.Length);
+                            ms.Write(buff, 0, count);
+                            current += count;
+                        } while (count > 0);
+                        response.Close();
+                        ResponseString = Encoding.UTF8.GetString(ms.ToArray());
+                        using (StreamWriter output = new StreamWriter("data.txt"))
+                        {
+                            output.Write(ResponseString);
                         }
+                        MySnapchat = JsonConvert.DeserializeObject<Snapchat.Snapchat>(ResponseString);
+
+                        if (!MySnapchat.Logged)
+                            return false;
+
+                        return true;
                     }
                 }
             }
-
-            return false;
         }
 
         private static string getSha(string input)

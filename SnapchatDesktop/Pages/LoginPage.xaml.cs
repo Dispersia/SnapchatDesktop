@@ -1,6 +1,8 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using MahApps.Metro.Controls.Dialogs;
+using System.Threading;
+using System.Windows.Threading;
 
 namespace SnapchatDesktop.Pages
 {
@@ -30,17 +32,20 @@ namespace SnapchatDesktop.Pages
                 LoggingInProgressRing.Visibility = Visibility.Visible;
                 LoggingInLabel.Visibility = Visibility.Visible;
 
-                if (Client.Login(UsernameBox.Text, PasswordBox.Password))
+                await Dispatcher.BeginInvoke(DispatcherPriority.Input, new ThreadStart(async() =>
                 {
-                    Client.SetPage(new MainPage());
-                }
-                else
-                {
-                    await Client.MainWindow.ShowMessageAsync("Login Failed", "Login failed, please check credentials and try again.");
-                    LoginGrid.Visibility = Visibility.Visible;
-                    LoggingInProgressRing.Visibility = Visibility.Hidden;
-                    LoggingInLabel.Visibility = Visibility.Hidden;
-                }
+                    if (Client.Login(UsernameBox.Text, PasswordBox.Password))
+                    {
+                        Client.SetPage(new MainPage());
+                    }
+                    else
+                    {
+                        await Client.MainWindow.ShowMessageAsync("Login Failed", Client.MySnapchat.Message);
+                        LoginGrid.Visibility = Visibility.Visible;
+                        LoggingInProgressRing.Visibility = Visibility.Hidden;
+                        LoggingInLabel.Visibility = Visibility.Hidden;
+                    }
+                }));
             }
         }
     }
