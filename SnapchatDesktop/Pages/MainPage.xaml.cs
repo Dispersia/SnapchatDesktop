@@ -12,6 +12,10 @@ namespace SnapchatDesktop.Pages
         public MainPage()
         {
             InitializeComponent();
+            for(int i = 0; i < Client.MySnapchat.FriendsList.Count; i++)
+            {
+                MessageBox.Show(Client.MySnapchat.FriendsList[i].Name);
+            }
         }
     }
 }

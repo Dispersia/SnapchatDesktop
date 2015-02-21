@@ -8,17 +8,25 @@ namespace SnapchatDesktop.Snapchat
 {
     class Snap
     {
+        [InternalName("sn")]
         public string Username { get; set; }
+
+        [InternalName("timer")]
         public double TimerLength { get; set; }
+
+        [InternalName("ts")]
         public long TS { get; set; }
+
+        [InternalName("sts")]
         public long STS { get; set; }
 
-        public Snap(string sn, int t, double timer, string id, int st, int m, long ts, long sts)
-        {
-            Username = sn;
-            TimerLength = timer;
-            TS = ts;
-            STS = sts;
-        }
+        [InternalName("id")]
+        public string ID { get; set; }
+
+        [InternalName("st")]
+        public int ST { get; set; }
+
+        [InternalName("m")]
+        public int M { get; set; }
     }
 }
