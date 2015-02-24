@@ -11,7 +11,7 @@
       Title="MainPage">
 
     <Grid>
-        <Grid x:Name="CaptureGrid" Width="500" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,200,0">
+        <Grid x:Name="CaptureGrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,200,0">
             <customControls:CaptureButton HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,20" MouseDown="CaptureButton_MouseDown"/>
         </Grid>
         <ListBox x:Name="friendsListBox" HorizontalAlignment="Right" VerticalAlignment="Stretch" Width="200" Background="Transparent" BorderBrush="Black"/>
