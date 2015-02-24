@@ -87,12 +87,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Interface\Controls\CaptureButton.xaml.cs">
+      <DependentUpon>CaptureButton.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Interface\Controls\UserListItem.xaml.cs">
       <DependentUpon>UserListItem.xaml</DependentUpon>
     </Compile>
     <Compile Include="Snapchat\Friend.cs" />
     <Compile Include="Snapchat\Snap.cs" />
     <Compile Include="Snapchat\Snapchat.cs" />
+    <Page Include="Interface\Controls\CaptureButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Interface\Controls\UserListItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -110,10 +117,6 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Interface\Pages\CapturePage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Interface\Pages\LoginPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -124,9 +127,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Interface\Pages\CapturePage.xaml.cs">
-      <DependentUpon>CapturePage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Interface\Pages\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>

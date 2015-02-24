@@ -3,11 +3,11 @@
 namespace SnapchatDesktop.Interface.Controls
 {
     /// <summary>
-    /// Interaction logic for UserListItem.xaml
+    /// Interaction logic for UserControl1.xaml
     /// </summary>
-    public partial class UserListItem : UserControl
+    public partial class CaptureButton : UserControl
     {
-        public UserListItem()
+        public CaptureButton()
         {
             InitializeComponent();
         }
