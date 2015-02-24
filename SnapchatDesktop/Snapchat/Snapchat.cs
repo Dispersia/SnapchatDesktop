@@ -49,7 +49,7 @@ namespace SnapchatDesktop.Snapchat
         public List<Friend> FriendsList { get; set; } = new List<Friend>();
 
         [InternalName("requests")]
-        public object[] requests;
+        public object[] requests = null;
 
         [InternalName("username")]
         public string Username { get; set; }

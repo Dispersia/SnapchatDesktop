@@ -1,0 +1,18 @@
+﻿<UserControl x:Class="SnapchatDesktop.Interface.Controls.UserListItem"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SnapchatDesktop.Interface.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="50" d:DesignWidth="200">
+    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <Line Stroke="Black" X1="55" Y1="1" X2="195" Y2="1" VerticalAlignment="Top" HorizontalAlignment="Stretch"/>
+        <Image x:Name="StoryImage" Width="50" Height="50" HorizontalAlignment="Left" VerticalAlignment="top"/>
+        <Label VerticalAlignment="Center" HorizontalAlignment="Left" Margin="50, 5, 0, 0" Foreground="Black">
+            <TextBlock x:Name="DisplayName" Margin="0,-7,0,0">
+                Dispersia
+            </TextBlock>
+        </Label>
+    </Grid>
+</UserControl>
