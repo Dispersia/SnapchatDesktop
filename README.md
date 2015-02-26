@@ -13,3 +13,6 @@
   MahApps.Metro (I just love the looks of it)<br />
   Json.Net<br />
   Graphics used by official snapchat client.
+<br /><br />
+Thanks to Gibsonsec over at: http://gibsonsec.org/snapchat/fulldisclosure/
+for the base.
