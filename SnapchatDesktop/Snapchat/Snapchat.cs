@@ -11,7 +11,7 @@ namespace SnapchatDesktop.Snapchat
     {
         public Snapchat()
         {
-            if (!Client.ResponseString.Contains("\"logged\":false"))
+            if (Logged)
             {
                 var resultObjects = AllChildren(JObject.Parse(Client.ResponseString))
                     .First(c => c.Type == JTokenType.Array && c.Path.Contains("friends"))

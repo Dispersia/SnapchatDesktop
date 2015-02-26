@@ -6,8 +6,11 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -23,8 +26,7 @@ namespace SnapchatDesktop
         private const string
             BaseUrl = "https://feelinsonice-hrd.appspot.com/bq/",
             Static_Token = "m198sOkJEn37DjqZ32lpRu76xmw288xSQ9",
-            Timestamp = "1373207221",
-            User_Agent = "Snapchat/9.1.2.0 (Nexus 4; Android 18; gzip)",
+            User_Agent = "Snapchat/9.2.0 (Linux; Android 4.4.2; Nexus 4 Build/KOT49H) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.114 Mobile Safari/537.36",
             Secret_Token = "iEk21fuwZApXlz93750dmW22pw389dPwOk",
             Pattern = "0001110111101110001111010101111011010001001110011000110001000110";
 
@@ -58,17 +60,13 @@ namespace SnapchatDesktop
             }
         }
 
-        public static bool Login(string username, string password)
+        //Thanks to Nikey646 for the suggestion on updating this.
+        public static async Task<bool> Login(string username, string password)
         {
             TimeSpan span = DateTime.Now - new DateTime(1970, 1, 1);
             string timestamp = span.TotalSeconds.ToString(CultureInfo.InvariantCulture);
-            StringBuilder postBuilder = new StringBuilder();
-            postBuilder.Append("username=" + username);
-            postBuilder.Append("&password=" + password);
-            postBuilder.Append("&timestamp=" + timestamp);
-            string reqToken = string.Empty;
-            string first = getSha(string.Format("{0}{1}", Secret_Token, Static_Token));
-            string second = getSha(string.Format("{0}{1}", timestamp, Secret_Token));
+            string first = getSha(Secret_Token + Static_Token);
+            string second = getSha(timestamp + Secret_Token);
 
             StringBuilder tokenBuilder = new StringBuilder();
             for (int i = 0; i < Pattern.Length; i++)
@@ -79,51 +77,45 @@ namespace SnapchatDesktop
                 else
                     tokenBuilder.Append(second[i]);
             }
-            postBuilder.Append("&req_token=" + tokenBuilder.ToString());
 
-            HttpWebRequest request = WebRequest.Create(string.Format(string.Format("{0}{1}", BaseUrl, "login"))) as HttpWebRequest;
-            request.Accept = "*/*";
-            request.Headers.Add(HttpRequestHeader.AcceptLanguage, "en-US");
-            request.ContentType = "application/x-www-form-urlencoded";
-            request.Method = "POST";
-            request.UserAgent = User_Agent;
-
-            using (StreamWriter writer = new StreamWriter(request.GetRequestStream()))
+            var postData = new Dictionary<string, string>()
             {
-                writer.Write(postBuilder.ToString());
-            }
+                { "username", username },
+                { "password", password },
+                { "timestamp", timestamp },
+                { "req_token", tokenBuilder.ToString() }
+            };
 
-            using (HttpWebResponse response = request.GetResponse() as HttpWebResponse)
+            var requestClient = new HttpClient(new HttpClientHandler
             {
+                UseCookies = true,
+                CookieContainer = new CookieContainer(),
+                Credentials = new NetworkCredential(username, password),
+                Proxy = null,
+                PreAuthenticate = true
+            }, true);
 
-                using (Stream rs = response.GetResponseStream())
-                {
-                    using (MemoryStream ms = new MemoryStream())
-                    {
-                        byte[] buff = new byte[8000];
-                        int count = 0;
-                        int current = 0;
-                        do
-                        {
-                            count = rs.Read(buff, 0, buff.Length);
-                            ms.Write(buff, 0, count);
-                            current += count;
-                        } while (count > 0);
-                        response.Close();
-                        ResponseString = Encoding.UTF8.GetString(ms.ToArray());
-                        using (StreamWriter output = new StreamWriter("data.txt"))
-                        {
-                            output.Write(ResponseString);
-                        }
-                        MySnapchat = JsonConvert.DeserializeObject<Snapchat.Snapchat>(ResponseString);
+            requestClient.DefaultRequestHeaders.Add("Accept", "application/json");
+            requestClient.DefaultRequestHeaders.Add("Accept-Language", "en-US");
+            requestClient.DefaultRequestHeaders.Add("User-Agent", User_Agent);
 
-                        if (!MySnapchat.Logged)
-                            return false;
+            var response = await requestClient.PostAsync(BaseUrl + "login", new FormUrlEncodedContent(postData));
+            response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/x-www-form-urlencoded");
 
-                        return true;
-                    }
-                }
-            }
+            ResponseString = await response.Content.ReadAsStringAsync();
+
+            if (!ResponseString.Contains("401 UNAUTHORIZED"))
+                MySnapchat = JsonConvert.DeserializeObject<Snapchat.Snapchat>(ResponseString);
+            else
+                MySnapchat = new Snapchat.Snapchat() {
+                    Logged = false,
+                    Message = "401 Unauthorized error. Please submit as an issue on github, thanks!"
+                };
+
+            if (!MySnapchat.Logged)
+                return false;
+
+            return true;
         }
 
         private static string getSha(string input)
