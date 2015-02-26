@@ -24,9 +24,9 @@ namespace SnapchatDesktop
         public static string AuthToken { get; set; }
         public static string RequestToken { get; set; }
         private const string
-            BaseUrl = "https://feelinsonice-hrd.appspot.com/bq/",
+            BaseUrl = "https://feelinsonice-hrd.appspot.com/loq/",
             Static_Token = "m198sOkJEn37DjqZ32lpRu76xmw288xSQ9",
-            User_Agent = "Snapchat/9.2.0 (Linux; Android 4.4.2; Nexus 4 Build/KOT49H) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.114 Mobile Safari/537.36",
+            User_Agent = "Snapchat/9.1.2.0 (Nexus 4; Android 18; gzip)",
             Secret_Token = "iEk21fuwZApXlz93750dmW22pw389dPwOk",
             Pattern = "0001110111101110001111010101111011010001001110011000110001000110";
 
@@ -64,7 +64,7 @@ namespace SnapchatDesktop
         public static async Task<bool> Login(string username, string password)
         {
             TimeSpan span = DateTime.Now - new DateTime(1970, 1, 1);
-            string timestamp = span.TotalSeconds.ToString(CultureInfo.InvariantCulture);
+            string timestamp = (span.TotalSeconds * 1000).ToString(CultureInfo.InvariantCulture).Substring(0, 13);
             string first = getSha(Secret_Token + Static_Token);
             string second = getSha(timestamp + Secret_Token);
 
@@ -72,10 +72,9 @@ namespace SnapchatDesktop
             for (int i = 0; i < Pattern.Length; i++)
             {
                 char c = Pattern[i];
-                if (c == '0')
-                    tokenBuilder.Append(first[i]);
-                else
-                    tokenBuilder.Append(second[i]);
+                tokenBuilder.Append(c == '0' ?
+                    first[i] :
+                    second[i]);
             }
 
             var postData = new Dictionary<string, string>()
@@ -83,31 +82,32 @@ namespace SnapchatDesktop
                 { "username", username },
                 { "password", password },
                 { "timestamp", timestamp },
-                { "req_token", tokenBuilder.ToString() }
+                { "req_token", tokenBuilder.ToString() },
+                { "access_token", "eyJhbGciOiJSUzI1NiIsImtpZCI6Ijc0ZWIyNDY1MGE0NzViNDkzZGQzZjFiMjU2MmM5MTZmOTA1MzIyOTAifQ.eyJpc3MiOiJhY2NvdW50cy5nb29nbGUuY29tIiwic3ViIjoiMTA0NzkzMDIyMzY2MTc0NTE1NTAxIiwiYXpwIjoiNjk0ODkzOTc5MzI5LXFnMGkwdTg4dDBobThrNmsxbWJyYm5zdWoxMDFoNzN2LmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwiZW1haWwiOiJkaXNwZXJzaWFzQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJhdWQiOiI2OTQ4OTM5NzkzMjktbDU5ZjNwaGw0MmV0OWNscG9vMjk2ZDhyYXFvbGpsNnAuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJpYXQiOjE0MjQ5OTA3NDAsImV4cCI6MTQyNDk5NDY0MH0.S8UonDBapaAoIv-VdxUydi380dQ9rzH-Fzqoy4_MVuH0udJRRf6gYBezSoFtcAUFwB1SeTp1xch68A39iqS7peVbkLNcOPZNSTDX8-c0VR-3E9xjULJPZ9GWf4q8RUc6x_51SXLWeUnJ-klOnczR_RkUkNzPXcm6m1Gzl5cq1N0" },
+                { "all_updates_friends_response", "{\"all_updates_friends_response\":true}" }
             };
 
             var requestClient = new HttpClient(new HttpClientHandler
             {
-                UseCookies = true,
-                CookieContainer = new CookieContainer(),
-                Credentials = new NetworkCredential(username, password),
-                Proxy = null,
-                PreAuthenticate = true
+                UseDefaultCredentials = true,
+                PreAuthenticate = true,
+                Proxy = null
             }, true);
 
-            requestClient.DefaultRequestHeaders.Add("Accept", "application/json");
-            requestClient.DefaultRequestHeaders.Add("Accept-Language", "en-US");
+            requestClient.DefaultRequestHeaders.Add("Accept-Language", "en");
+            requestClient.DefaultRequestHeaders.Add("Accept-Locale", "en_US");
             requestClient.DefaultRequestHeaders.Add("User-Agent", User_Agent);
 
             var response = await requestClient.PostAsync(BaseUrl + "login", new FormUrlEncodedContent(postData));
-            response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/x-www-form-urlencoded");
+            response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
             ResponseString = await response.Content.ReadAsStringAsync();
 
             if (!ResponseString.Contains("401 UNAUTHORIZED"))
                 MySnapchat = JsonConvert.DeserializeObject<Snapchat.Snapchat>(ResponseString);
             else
-                MySnapchat = new Snapchat.Snapchat() {
+                MySnapchat = new Snapchat.Snapchat()
+                {
                     Logged = false,
                     Message = "401 Unauthorized error. Please submit as an issue on github, thanks!"
                 };

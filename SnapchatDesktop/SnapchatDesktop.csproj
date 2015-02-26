@@ -95,9 +95,9 @@
     <Compile Include="Interface\Controls\UserListItem.xaml.cs">
       <DependentUpon>UserListItem.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Snapchat\Friend.cs" />
-    <Compile Include="Snapchat\Snap.cs" />
-    <Compile Include="Snapchat\Snapchat.cs" />
+    <Compile Include="SnapchatHelper\Friend.cs" />
+    <Compile Include="SnapchatHelper\Snap.cs" />
+    <Compile Include="SnapchatHelper\Snapchat.cs" />
     <Page Include="Interface\Controls\CaptureButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
