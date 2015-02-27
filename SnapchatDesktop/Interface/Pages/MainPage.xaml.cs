@@ -15,7 +15,7 @@ namespace SnapchatDesktop.Pages
         public MainPage()
         {
             InitializeComponent();
-            Client.MySnapchat.FriendsList = Client.MySnapchat.FriendsList.OrderBy(x =>
+            /*Client.MySnapchat.FriendsList = Client.MySnapchat.FriendsList.OrderBy(x =>
                 (!String.IsNullOrEmpty(x.Display)
                         ? x.Display
                         : x.Name)).ToList();
@@ -28,7 +28,7 @@ namespace SnapchatDesktop.Pages
                     : Client.MySnapchat.FriendsList[i].Name);
                 item.StoryImage.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/SnapchatStory.jpg"));
                 friendsListBox.Items.Add(item);
-            }
+            }*/
         }
 
         private void CaptureButton_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)

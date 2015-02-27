@@ -83,36 +83,34 @@ namespace SnapchatDesktop
                 { "password", password },
                 { "timestamp", timestamp },
                 { "req_token", tokenBuilder.ToString() },
-                { "access_token", "eyJhbGciOiJSUzI1NiIsImtpZCI6Ijc0ZWIyNDY1MGE0NzViNDkzZGQzZjFiMjU2MmM5MTZmOTA1MzIyOTAifQ.eyJpc3MiOiJhY2NvdW50cy5nb29nbGUuY29tIiwic3ViIjoiMTA0NzkzMDIyMzY2MTc0NTE1NTAxIiwiYXpwIjoiNjk0ODkzOTc5MzI5LXFnMGkwdTg4dDBobThrNmsxbWJyYm5zdWoxMDFoNzN2LmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwiZW1haWwiOiJkaXNwZXJzaWFzQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJhdWQiOiI2OTQ4OTM5NzkzMjktbDU5ZjNwaGw0MmV0OWNscG9vMjk2ZDhyYXFvbGpsNnAuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJpYXQiOjE0MjQ5OTA3NDAsImV4cCI6MTQyNDk5NDY0MH0.S8UonDBapaAoIv-VdxUydi380dQ9rzH-Fzqoy4_MVuH0udJRRf6gYBezSoFtcAUFwB1SeTp1xch68A39iqS7peVbkLNcOPZNSTDX8-c0VR-3E9xjULJPZ9GWf4q8RUc6x_51SXLWeUnJ-klOnczR_RkUkNzPXcm6m1Gzl5cq1N0" },
-                { "all_updates_friends_response", "{\"all_updates_friends_response\":true}" }
+                { "features_map", "{\"all_updates_friends_response\":true}" },
+                { "access_token", "eyJhbGciOiJSUzI1NiIsImtpZCI6Ijc0ZWIyNDY1MGE0NzViNDkzZGQzZjFiMjU2MmM5MTZmOTA1MzIyOTAifQ.eyJpc3MiOiJhY2NvdW50cy5nb29nbGUuY29tIiwic3ViIjoiMTA0NzkzMDIyMzY2MTc0NTE1NTAxIiwiYXpwIjoiNjk0ODkzOTc5MzI5LXFnMGkwdTg4dDBobThrNmsxbWJyYm5zdWoxMDFoNzN2LmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwiZW1haWwiOiJkaXNwZXJzaWFzQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJhdWQiOiI2OTQ4OTM5NzkzMjktbDU5ZjNwaGw0MmV0OWNscG9vMjk2ZDhyYXFvbGpsNnAuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJpYXQiOjE0MjQ5OTkyNDQsImV4cCI6MTQyNTAwMzE0NH0.mVBWSjR3SZ6N3yRtJylKy5qPr1RMVhKNfLDVQcCSkKfrmILeSP0o4HBBA13-BMoqukdfIlC2QRoqj1b21-Dhz3sauNVm4CoWQ2xtEucpp2KN6pFQeO5bUMxG-RMWcieCTYyb3UTwTyZ1bjqZStyylXMrYrHiUwdESYWY6aJQVvI" } //Need to decompile again to figure this one out.
             };
 
             var requestClient = new HttpClient(new HttpClientHandler
             {
-                UseDefaultCredentials = true,
-                PreAuthenticate = true,
                 Proxy = null
             }, true);
 
-            requestClient.DefaultRequestHeaders.Add("Accept-Language", "en");
-            requestClient.DefaultRequestHeaders.Add("Accept-Locale", "en_US");
+            requestClient.DefaultRequestHeaders.Add("Accept", "*/*");
+            requestClient.DefaultRequestHeaders.Add("Accept-Language", "en-US");
             requestClient.DefaultRequestHeaders.Add("User-Agent", User_Agent);
 
             var response = await requestClient.PostAsync(BaseUrl + "login", new FormUrlEncodedContent(postData));
-            response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/x-www-form-urlencoded");
 
             ResponseString = await response.Content.ReadAsStringAsync();
 
             if (!ResponseString.Contains("401 UNAUTHORIZED"))
                 MySnapchat = JsonConvert.DeserializeObject<Snapchat.Snapchat>(ResponseString);
             else
-                MySnapchat = new Snapchat.Snapchat()
-                {
-                    Logged = false,
-                    Message = "401 Unauthorized error. Please submit as an issue on github, thanks!"
-                };
+            {
+                MySnapchat = new Snapchat.Snapchat();
+                MySnapchat.UpdateResponse.Logged = false;
+                //MySnapchat.updateResponse. = "401 Unauthorized error. Please submit as an issue on github, thanks!"
+            }
 
-            if (!MySnapchat.Logged)
+            if (!MySnapchat.UpdateResponse.Logged)
                 return false;
 
             return true;
