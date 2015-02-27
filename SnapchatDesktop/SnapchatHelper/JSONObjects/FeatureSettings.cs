@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SnapchatDesktop.SnapchatHelper
+namespace SnapchatDesktop.SnapchatHelper.JSONObjects
 {
-    internal class FeatureSettings
+    public class FeatureSettings
     {
         public bool front_facing_flash { get; set; }
         public bool replay_snaps { get; set; }

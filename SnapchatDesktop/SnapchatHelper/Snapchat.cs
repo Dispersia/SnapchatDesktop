@@ -10,47 +10,51 @@ namespace SnapchatDesktop.Snapchat
     {
         [JsonProperty("message")]
         public string Message { get; set; }
+        public bool enable_video_transcoding_android { get; set; }
+        public List<object> bests { get; set; }
+        public int score { get; set; }
+        public bool enable_save_story_to_gallery { get; set; }
+        public int number_of_best_friends { get; set; }
+        public int received { get; set; }
 
-        [JsonProperty("updates_response")]
-        public UpdatesResponse UpdateResponse { get; set; } = new UpdatesResponse();
+        [JsonProperty("logged")]
+        public bool Logged { get; set; }
 
-        [JsonProperty("friends_response")]
-        public FriendsResponse friendsResponse { get; set; } = new FriendsResponse();
-
-        [JsonProperty("stories_response")]
-        public StoriesResponse storiesResponse { get; set; } = new StoriesResponse();
-
-        [JsonProperty("conversations_response")]
-        public List<ConversationsResponse> conversationsResponse { get; set; } = new List<ConversationsResponse>();
-
-        [JsonProperty("discover")]
-        public Discover discover { get; set; } = new Discover();
-
-        [JsonProperty("get_channels_url")]
-        public string getChannelsUrl { get; set; }
-
-        [JsonProperty("messaging_gateway_info")] 
-        public MessagingGatewayInfo messagingGatewayInfo { get; set; } = new MessagingGatewayInfo();
-
-        [JsonProperty("background_fetch_secret_key")]
-        public string backgroundFetchSecretKey { get; set; }
-
-
-        /*public class Dispersia
-        {
-            public bool saved { get; set; }
-            public int version { get; set; }
-        }
-
-        public class SavedState
-        {
-            public Dispersia dispersia { get; set; }
-        }*/
-
-        /*
-        public class Dispersia2
-        {
-            public int teamsnapchat { get; set; }
-        }*/
+        [JsonProperty("added_friends")]
+        public List<AddedFriend> FriendsList { get; set; }
+        public List<object> requests { get; set; }
+        public string username { get; set; }
+        public string story_privacy { get; set; }
+        public int sent { get; set; }
+        public List<Snap> snaps { get; set; }
+        public List<Friend> friends { get; set; }
+        public string device_token { get; set; }
+        public string cash_customer_id { get; set; }
+        public FeatureSettings feature_settings { get; set; }
+        public string user_id { get; set; }
+        public int snap_p { get; set; }
+        public string mobile_verification_key { get; set; }
+        public bool video_filters_enabled { get; set; }
+        public List<object> recents { get; set; }
+        public string notification_sound_setting { get; set; }
+        public long added_friends_timestamp { get; set; }
+        public string allowed_to_use_cash { get; set; }
+        public bool is_cash_active { get; set; }
+        public bool searchable_by_phone_number { get; set; }
+        public string snapchat_phone_number { get; set; }
+        public string auth_token { get; set; }
+        public bool image_caption { get; set; }
+        public string country_code { get; set; }
+        public bool blocked_from_using_our_story { get; set; }
+        public string qr_path { get; set; }
+        public string cash_provider { get; set; }
+        public long current_timestamp { get; set; }
+        public bool can_view_mature_content { get; set; }
+        public string email { get; set; }
+        public int contacts_resync_request { get; set; }
+        public bool should_send_text_to_verify_number { get; set; }
+        public string temp { get; set; }
+        public bool should_call_to_verify_number { get; set; }
+        public string mobile { get; set; }
     }
 }

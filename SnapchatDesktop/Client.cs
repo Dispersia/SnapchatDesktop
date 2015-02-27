@@ -25,7 +25,7 @@ namespace SnapchatDesktop
         public static string RequestToken { get; set; }
         private const string
             SnapVersion = "9.1.2.0",
-            BaseUrl = "https://feelinsonice-hrd.appspot.com/loq/",
+            BaseUrl = "https://feelinsonice-hrd.appspot.com/bq/",
             Static_Token = "m198sOkJEn37DjqZ32lpRu76xmw288xSQ9",
             User_Agent = "Snapchat/" + SnapVersion + " (Nexus 4; Android 18; gzip)",
             Secret_Token = "iEk21fuwZApXlz93750dmW22pw389dPwOk",
@@ -66,16 +66,14 @@ namespace SnapchatDesktop
         {
             TimeSpan span = DateTime.Now - new DateTime(1970, 1, 1);
             string timestamp = (span.TotalSeconds * 1000).ToString(CultureInfo.InvariantCulture).Substring(0, 13);
-            
+
 
             var postData = new Dictionary<string, string>()
             {
                 { "username", username },
                 { "password", password },
                 { "timestamp", timestamp },
-                { "req_token", getToken(timestamp, Static_Token) },
-                { "features_map", "{\"all_updates_friends_response\":true}" },
-                { "access_token", "eyJhbGciOiJSUzI1NiIsImtpZCI6Ijc0ZWIyNDY1MGE0NzViNDkzZGQzZjFiMjU2MmM5MTZmOTA1MzIyOTAifQ.eyJpc3MiOiJhY2NvdW50cy5nb29nbGUuY29tIiwic3ViIjoiMTA0NzkzMDIyMzY2MTc0NTE1NTAxIiwiYXpwIjoiNjk0ODkzOTc5MzI5LXFnMGkwdTg4dDBobThrNmsxbWJyYm5zdWoxMDFoNzN2LmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwiZW1haWwiOiJkaXNwZXJzaWFzQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJhdWQiOiI2OTQ4OTM5NzkzMjktbDU5ZjNwaGw0MmV0OWNscG9vMjk2ZDhyYXFvbGpsNnAuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJpYXQiOjE0MjUwMjE3OTAsImV4cCI6MTQyNTAyNTY5MH0.K22ML2yd3OK-2hdQzzcykmrzlG1mdfWGd9USxPnTBWSj01EDYRp2IrtiKLurSUuHwOrhUUzflyQCaWwH7lH6935U_jh6OA-LHUielGWZYcgKMqUY0I56AhHmYoigUmydVj05F6BAvnJ_seEL5gm4nk7HEZSA-__QPagntdf6Knk" } //Need to decompile again to figure this one out.
+                { "req_token", getToken(timestamp, Static_Token) }
             };
 
             var requestClient = new HttpClient(new HttpClientHandler
@@ -84,7 +82,8 @@ namespace SnapchatDesktop
             }, true);
 
             requestClient.DefaultRequestHeaders.Add("Accept", "*/*");
-            requestClient.DefaultRequestHeaders.Add("Accept-Language", "en-US");
+            requestClient.DefaultRequestHeaders.Add("Accept-Language", "en-US;q=1, en;q=0.9");
+            requestClient.DefaultRequestHeaders.Add("Accept-Locale", "en");
             requestClient.DefaultRequestHeaders.Add("User-Agent", User_Agent);
 
             var response = await requestClient.PostAsync(BaseUrl + "login", new FormUrlEncodedContent(postData));
@@ -97,11 +96,11 @@ namespace SnapchatDesktop
             else
             {
                 MySnapchat = new Snapchat.Snapchat();
-                MySnapchat.UpdateResponse.Logged = false;
+                MySnapchat.Logged = false;
                 MySnapchat.Message = "401 Unauthorized error. Please submit as an issue on github, thanks!";
             }
 
-            if (!MySnapchat.UpdateResponse.Logged)
+            if (!MySnapchat.Logged)
                 return false;
 
             return true;

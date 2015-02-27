@@ -96,38 +96,10 @@
       <DependentUpon>UserListItem.xaml</DependentUpon>
     </Compile>
     <Compile Include="SnapchatHelper\JSONObjects\AddedFriend.cs" />
-    <Compile Include="SnapchatHelper\JSONObjects\Attribute.cs" />
-    <Compile Include="SnapchatHelper\JSONObjects\Attribute2.cs" />
-    <Compile Include="SnapchatHelper\JSONObjects\Body.cs" />
-    <Compile Include="SnapchatHelper\JSONObjects\ChatMessage.cs" />
-    <Compile Include="SnapchatHelper\JSONObjects\ClientProperties.cs" />
-    <Compile Include="SnapchatHelper\JSONObjects\ConversationMessages.cs" />
-    <Compile Include="SnapchatHelper\JSONObjects\ConversationResponse.cs" />
-    <Compile Include="SnapchatHelper\JSONObjects\ConversationState.cs" />
-    <Compile Include="SnapchatHelper\JSONObjects\Discover.cs" />
     <Compile Include="SnapchatHelper\JSONObjects\FeatureSettings.cs" />
     <Compile Include="SnapchatHelper\JSONObjects\Friend.cs" />
-    <Compile Include="SnapchatHelper\JSONObjects\FriendsResponse.cs" />
-    <Compile Include="SnapchatHelper\JSONObjects\FriendStory.cs" />
-    <Compile Include="SnapchatHelper\JSONObjects\GatewayAuthToken.cs" />
-    <Compile Include="SnapchatHelper\JSONObjects\Header.cs" />
-    <Compile Include="SnapchatHelper\JSONObjects\LastChatActions.cs" />
-    <Compile Include="SnapchatHelper\JSONObjects\LastSnap.cs" />
-    <Compile Include="SnapchatHelper\JSONObjects\MatureContentText.cs" />
-    <Compile Include="SnapchatHelper\JSONObjects\Message.cs" />
-    <Compile Include="SnapchatHelper\JSONObjects\MessagingAuth.cs" />
-    <Compile Include="SnapchatHelper\JSONObjects\MessagingGatewayInfo.cs" />
-    <Compile Include="SnapchatHelper\JSONObjects\SavedState.cs" />
     <Compile Include="SnapchatHelper\JSONObjects\Snap.cs" />
-    <Compile Include="SnapchatHelper\JSONObjects\StoriesResponse.cs" />
-    <Compile Include="SnapchatHelper\JSONObjects\Story.cs" />
-    <Compile Include="SnapchatHelper\JSONObjects\Story2.cs" />
-    <Compile Include="SnapchatHelper\JSONObjects\Teamsnapchat.cs" />
-    <Compile Include="SnapchatHelper\JSONObjects\UserChatReleases.cs" />
-    <Compile Include="SnapchatHelper\JSONObjects\UserSequences.cs" />
-    <Compile Include="SnapchatHelper\JSONObjects\UserSnapReleases.cs" />
     <Compile Include="SnapchatHelper\Snapchat.cs" />
-    <Compile Include="SnapchatHelper\JSONObjects\UpdatesResponse.cs" />
     <Page Include="Interface\Controls\CaptureButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

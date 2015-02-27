@@ -1,6 +1,12 @@
-﻿namespace SnapchatDesktop.Snapchat
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace SnapchatDesktop.SnapchatHelper.JSONObjects
 {
-    class Friend
+    public class Friend
     {
         public bool can_see_custom_stories { get; set; }
         public string direction { get; set; }
