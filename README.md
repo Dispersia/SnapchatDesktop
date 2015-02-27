@@ -8,7 +8,8 @@
  
  ya... only have login screen done lol.
  ![Login](http://i.imgur.com/SN5kk2E.png)
- 
+ It had more, but it met its untimely demise on the new version of snapchat, but it just shows I can get it to login as long as I hardcode the access key.
+ ![MainPage](http://i.imgur.com/dDLyuGb.png)
  Uses: <br />
   MahApps.Metro (I just love the looks of it)<br />
   Json.Net<br />
