@@ -40,7 +40,7 @@ namespace SnapchatDesktop.Pages
                     }
                     else
                     {
-                        await Client.MainWindow.ShowMessageAsync("Login Failed", "Failed.");
+                        await Client.MainWindow.ShowMessageAsync("Login Failed", string.IsNullOrEmpty(Client.MySnapchat.Message) ? "Failed." : Client.MySnapchat.Message);
                         LoginGrid.Visibility = Visibility.Visible;
                         LoggingInProgressRing.Visibility = Visibility.Hidden;
                         LoggingInLabel.Visibility = Visibility.Hidden;

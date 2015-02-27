@@ -118,6 +118,7 @@
     <Compile Include="SnapchatHelper\JSONObjects\MessagingAuth.cs" />
     <Compile Include="SnapchatHelper\JSONObjects\MessagingGatewayInfo.cs" />
     <Compile Include="SnapchatHelper\JSONObjects\SavedState.cs" />
+    <Compile Include="SnapchatHelper\JSONObjects\Snap.cs" />
     <Compile Include="SnapchatHelper\JSONObjects\StoriesResponse.cs" />
     <Compile Include="SnapchatHelper\JSONObjects\Story.cs" />
     <Compile Include="SnapchatHelper\JSONObjects\Story2.cs" />
