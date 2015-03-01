@@ -8,6 +8,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,7 +17,7 @@ using System.Windows.Controls;
 
 namespace SnapchatDesktop
 {
-    class Client
+    static class Client
     {
         public static List<Page> openPages { get; set; } = new List<Page>(); //Love you C#6
         public static MetroWindow MainWindow { get; set; }
@@ -41,12 +42,12 @@ namespace SnapchatDesktop
             {
                 if (p.GetType() == page.GetType())
                 {
-                    Application.Current.MainWindow.Content = p;
+                    ((MainWindow) MainWindow).PageHostFrame.Content = p;
                     return;
                 }
             }
             openPages.Add(page);
-            Application.Current.MainWindow.Content = page;
+            ((MainWindow)MainWindow).PageHostFrame.Content = page ;
         }
 
         public static void ClearPage(Page page)
