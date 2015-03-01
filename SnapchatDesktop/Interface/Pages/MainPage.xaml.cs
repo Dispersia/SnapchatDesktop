@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using System.Diagnostics;
 using System.Windows;
+using SnapchatHelper.JSONObjects.bq;
 
 namespace SnapchatDesktop.Pages
 {
@@ -55,6 +56,16 @@ namespace SnapchatDesktop.Pages
         private void CaptureButton_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             Debug.WriteLine("Captured!");
+        }
+
+        private void ViewSnap_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show((friendsListBox.SelectedItem as UserListItem).DisplayName.Text);
+        }
+
+        private void SendMessage_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

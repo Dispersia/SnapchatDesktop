@@ -17,8 +17,8 @@
         <ListBox x:Name="friendsListBox" HorizontalAlignment="Right" VerticalAlignment="Stretch" Width="200" Background="Transparent" BorderBrush="Black">
             <ListBox.Resources>
                 <ContextMenu x:Key="UserMenu">
-                    <MenuItem Header="View Snap" />
-                    <MenuItem Header="Send Message" />
+                    <MenuItem Header="View Snap" Click="ViewSnap_Click" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Parent}" />
+                    <MenuItem Header="Send Message" Click="SendMessage_Click" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Parent}" />
                 </ContextMenu>
             </ListBox.Resources>
             <ListBox.ItemContainerStyle>
