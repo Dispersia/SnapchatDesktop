@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,8 +9,13 @@ namespace SnapchatHelper.JSONObjects.loq
 {
     public class FriendsResponse
     {
-        public static List<object> bests { get; set; }
-        public static List<Friend> friends { get; set; }
-        public static List<AddedFriend> added_friends { get; set; }
+        [JsonProperty("bests")]
+        public List<object> Bests { get; set; }
+
+        [JsonProperty("friends")]
+        public List<Friend> Friends { get; set; }
+
+        [JsonProperty("added_friends")]
+        public List<AddedFriend> AddedFriends { get; set; }
     }
 }

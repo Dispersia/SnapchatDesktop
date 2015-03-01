@@ -16,21 +16,39 @@ namespace SnapchatDesktop.Pages
         public MainPage()
         {
             InitializeComponent();
-
-            Client.Snapchat.FriendsList = Client.Snapchat.FriendsList.OrderBy(x =>
-                (!String.IsNullOrEmpty(x.Display)
-                        ? x.Display
-                        : x.Name)).ToList();
-
-            for(int i = 0; i < Client.Snapchat.FriendsList.Count; i++)
+            if (Client.Snapchat.friendsResponse.Friends != null)
             {
-                UserListItem item = new UserListItem();
-                item.DisplayName.Text = (!String.IsNullOrEmpty(Client.Snapchat.FriendsList[i].Display)
-                    ? Client.Snapchat.FriendsList[i].Display
-                    : Client.Snapchat.FriendsList[i].Name);
-                //if(Client.MySnapchat.Friends.FirstOrDefault(x => x.Name == item.Name).sharedStoryId > 0)
+                Client.Snapchat.friendsResponse.Friends = Client.Snapchat.friendsResponse.Friends.OrderBy(x =>
+                    (!String.IsNullOrEmpty(x.Display)
+                            ? x.Display
+                            : x.Name)).ToList();
+
+                for (int i = 0; i < Client.Snapchat.FriendsList.Count; i++)
+                {
+                    UserListItem item = new UserListItem();
+                    item.DisplayName.Text = (!String.IsNullOrEmpty(Client.Snapchat.FriendsList[i].Display)
+                        ? Client.Snapchat.FriendsList[i].Display
+                        : Client.Snapchat.FriendsList[i].Name);
                     item.StoryImage.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/SnapchatStory.jpg"));
-                friendsListBox.Items.Add(item);
+                    friendsListBox.Items.Add(item);
+                }
+            }
+            else
+            {
+                Client.Snapchat.FriendsList = Client.Snapchat.FriendsList.OrderBy(x =>
+                    (!String.IsNullOrEmpty(x.Display)
+                            ? x.Display
+                            : x.Name)).ToList();
+
+                for (int i = 0; i < Client.Snapchat.FriendsList.Count; i++)
+                {
+                    UserListItem item = new UserListItem();
+                    item.DisplayName.Text = (!String.IsNullOrEmpty(Client.Snapchat.FriendsList[i].Display)
+                        ? Client.Snapchat.FriendsList[i].Display
+                        : Client.Snapchat.FriendsList[i].Name);
+                    item.StoryImage.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/SnapchatStory.jpg"));
+                    friendsListBox.Items.Add(item);
+                }
             }
         }
 
