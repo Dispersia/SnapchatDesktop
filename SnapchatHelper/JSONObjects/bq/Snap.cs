@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
-namespace SnapchatDesktop.SnapchatHelper.JSONObjects
+
+namespace SnapchatHelper.JSONObjects.bq
 {
     public class Snap
     {

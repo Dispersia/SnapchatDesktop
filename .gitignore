@@ -11,6 +11,8 @@ $RECYCLE.BIN/
 /SnapchatDesktop.sln.ide/
 /SnapchatDesktop/bin/
 /SnapchatDesktop/obj/
+/SnapchatHelper/bin/
+/SnapchatHelper/obj/
 
 # Windows Installer files
 *.cab

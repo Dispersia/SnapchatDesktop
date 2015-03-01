@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{7F3431AF-4F85-4218-9E33-9A9CC386D35A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SnapchatHelper</RootNamespace>
+    <AssemblyName>SnapchatHelper</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\SnapchatDesktop\bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.7.0.1-beta1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="JSONObjects\bq\AddedFriend.cs" />
+    <Compile Include="JSONObjects\bq\bqCommands.cs" />
+    <Compile Include="JSONObjects\bq\FeatureSettings.cs" />
+    <Compile Include="JSONObjects\bq\Friend.cs" />
+    <Compile Include="JSONObjects\bq\Snap.cs" />
+    <Compile Include="JSONObjects\loq\AddedFriend.cs" />
+    <Compile Include="JSONObjects\loq\Attribute.cs" />
+    <Compile Include="JSONObjects\loq\Attribute2.cs" />
+    <Compile Include="JSONObjects\loq\Body.cs" />
+    <Compile Include="JSONObjects\loq\ChatMessage.cs" />
+    <Compile Include="JSONObjects\loq\ClientProperties.cs" />
+    <Compile Include="JSONObjects\loq\ConversationMessages.cs" />
+    <Compile Include="JSONObjects\loq\ConversationsResponse.cs" />
+    <Compile Include="JSONObjects\loq\ConversationState.cs" />
+    <Compile Include="JSONObjects\loq\Discover.cs" />
+    <Compile Include="JSONObjects\loq\FeatureSettings.cs" />
+    <Compile Include="JSONObjects\loq\Friend.cs" />
+    <Compile Include="JSONObjects\loq\FriendsResponse.cs" />
+    <Compile Include="JSONObjects\loq\FriendStory.cs" />
+    <Compile Include="JSONObjects\loq\GatewayAuthToken.cs" />
+    <Compile Include="JSONObjects\loq\Header.cs" />
+    <Compile Include="JSONObjects\loq\LastChatActions.cs" />
+    <Compile Include="JSONObjects\loq\LastSnap.cs" />
+    <Compile Include="JSONObjects\loq\MatureContentText.cs" />
+    <Compile Include="JSONObjects\loq\Message.cs" />
+    <Compile Include="JSONObjects\loq\MessagingAuth.cs" />
+    <Compile Include="JSONObjects\loq\MessagingGatewayInfo.cs" />
+    <Compile Include="JSONObjects\loq\SavedState.cs" />
+    <Compile Include="JSONObjects\loq\Snap.cs" />
+    <Compile Include="JSONObjects\loq\StoriesResponse.cs" />
+    <Compile Include="JSONObjects\loq\Story.cs" />
+    <Compile Include="JSONObjects\loq\Story2.cs" />
+    <Compile Include="JSONObjects\loq\Teamsnapchat.cs" />
+    <Compile Include="JSONObjects\loq\UpdatesResponse.cs" />
+    <Compile Include="JSONObjects\loq\UserChatReleases.cs" />
+    <Compile Include="JSONObjects\loq\UserSequences.cs" />
+    <Compile Include="JSONObjects\loq\UserSnapReleases.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Snapchat.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="JSONObjects\ph\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

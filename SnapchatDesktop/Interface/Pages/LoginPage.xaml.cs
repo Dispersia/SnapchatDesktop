@@ -3,6 +3,7 @@ using System.Windows.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using System.Threading;
 using System.Windows.Threading;
+using SnapchatHelper;
 
 namespace SnapchatDesktop.Pages
 {
@@ -34,13 +35,14 @@ namespace SnapchatDesktop.Pages
 
                 await Dispatcher.BeginInvoke(DispatcherPriority.Input, new ThreadStart(async() =>
                 {
-                    if (await Client.Login(UsernameBox.Text, PasswordBox.Password))
+                    Client.Snapchat = await Snapchat.bqLogin(UsernameBox.Text, PasswordBox.Password);
+                    if (Client.Snapchat.Logged)
                     {
                         Client.SetPage(new MainPage());
                     }
                     else
                     {
-                        await Client.MainWindow.ShowMessageAsync("Login Failed", string.IsNullOrEmpty(Client.MySnapchat.Message) ? "Failed." : Client.MySnapchat.Message);
+                        await Client.MainWindow.ShowMessageAsync("Login Failed", string.IsNullOrEmpty(Client.Snapchat.Message) ? "Failed." : Client.Snapchat.Message);
                         LoginGrid.Visibility = Visibility.Visible;
                         LoggingInProgressRing.Visibility = Visibility.Hidden;
                         LoggingInLabel.Visibility = Visibility.Hidden;

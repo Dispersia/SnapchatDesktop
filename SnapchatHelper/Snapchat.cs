@@ -1,13 +1,15 @@
 ﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using SnapchatDesktop.SnapchatHelper.JSONObjects;
-using System;
+using SnapchatHelper.JSONObjects;
+using SnapchatHelper.JSONObjects.bq;
+using SnapchatHelper.JSONObjects.loq;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
-namespace SnapchatDesktop.Snapchat
+namespace SnapchatHelper
 {
-    class Snapchat
+    public class Snapchat
     {
+        #region bqproperties
         [JsonProperty("message")]
         public string Message { get; set; }
 
@@ -33,7 +35,7 @@ namespace SnapchatDesktop.Snapchat
         public bool Logged { get; set; }
 
         [JsonProperty("added_friends")]
-        public List<AddedFriend> FriendsList { get; set; }
+        public List<JSONObjects.bq.AddedFriend> FriendsList { get; set; }
 
         [JsonProperty("requests")]
         public List<object> Requests { get; set; }
@@ -48,10 +50,10 @@ namespace SnapchatDesktop.Snapchat
         public int Sent { get; set; }
 
         [JsonProperty("snaps")]
-        public List<Snap> Snaps { get; set; }
+        public List<JSONObjects.bq.Snap> bqSnaps { get; set; }
 
         [JsonProperty("friends")]
-        public List<Friend> Friends { get; set; }
+        public List<JSONObjects.bq.Friend> bqFriends { get; set; }
 
         [JsonProperty("device_token")]
         public string deviceToken { get; set; }
@@ -60,7 +62,7 @@ namespace SnapchatDesktop.Snapchat
         public string cashCustomerId { get; set; }
 
         [JsonProperty("feature_settings")]
-        public FeatureSettings featureSettings { get; set; }
+        public JSONObjects.bq.FeatureSettings bqFeatureSettings { get; set; }
 
         [JsonProperty("user_id")]
         public string userID { get; set; }
@@ -136,5 +138,51 @@ namespace SnapchatDesktop.Snapchat
 
         [JsonProperty("mobile")]
         public string Mobile { get; set; }
+        #endregion
+
+        #region loqproperties
+        [JsonProperty("updates_response")]
+        public UpdatesResponse UpdateResponse { get; set; } = new UpdatesResponse();
+
+        [JsonProperty("friends_response")]
+        public FriendsResponse friendsResponse { get; set; } = new FriendsResponse();
+
+        [JsonProperty("stories_response")]
+        public StoriesResponse storiesResponse { get; set; } = new StoriesResponse();
+
+        [JsonProperty("conversations_response")]
+        public List<ConversationsResponse> conversationsResponse { get; set; } = new List<ConversationsResponse>();
+
+        [JsonProperty("discover")]
+        public Discover discover { get; set; } = new Discover();
+
+        [JsonProperty("get_channels_url")]
+        public string getChannelsUrl { get; set; }
+
+        [JsonProperty("messaging_gateway_info")]
+        public MessagingGatewayInfo messagingGatewayInfo { get; set; } = new MessagingGatewayInfo();
+
+        [JsonProperty("background_fetch_secret_key")]
+        public string backgroundFetchSecretKey { get; set; }
+        #endregion
+
+        public static async Task<Snapchat> bqLogin(string username, string password)
+        {
+            var json = await bqCommands.Login(username, password);
+
+            if (!string.IsNullOrEmpty(json))
+            {
+                return JsonConvert.DeserializeObject<Snapchat>(json);
+            }
+            else
+            {
+                Snapchat snapchat = new Snapchat()
+                {
+                    Message = "Failed.",
+                    Logged = false
+                };
+                return snapchat;
+            }
+        }
     }
 }

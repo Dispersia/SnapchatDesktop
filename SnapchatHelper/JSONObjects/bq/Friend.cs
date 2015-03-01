@@ -1,11 +1,6 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace SnapchatDesktop.SnapchatHelper.JSONObjects
+namespace SnapchatHelper.JSONObjects.bq
 {
     public class Friend
     {

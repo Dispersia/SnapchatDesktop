@@ -9,8 +9,5 @@
 		Title="Snapchat for Desktop" Height="500" Width="700"
 		MinHeight="500" MinWidth="700" Icon="Ghost.ico"
 		Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" WindowStartupLocation="CenterScreen">
-
-	<Controls:TransitioningContentControl x:Name="Transitioner" Transition="LeftReplace">
-		<Frame Name="PageHostFrame" />
-	</Controls:TransitioningContentControl>
+    
 </Controls:MetroWindow>

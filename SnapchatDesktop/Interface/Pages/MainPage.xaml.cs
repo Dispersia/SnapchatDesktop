@@ -16,18 +16,20 @@ namespace SnapchatDesktop.Pages
         public MainPage()
         {
             InitializeComponent();
-            Client.MySnapchat.FriendsList = Client.MySnapchat.FriendsList.OrderBy(x =>
+
+            Client.Snapchat.FriendsList = Client.Snapchat.FriendsList.OrderBy(x =>
                 (!String.IsNullOrEmpty(x.Display)
                         ? x.Display
                         : x.Name)).ToList();
 
-            for(int i = 0; i < Client.MySnapchat.FriendsList.Count; i++)
+            for(int i = 0; i < Client.Snapchat.FriendsList.Count; i++)
             {
                 UserListItem item = new UserListItem();
-                item.DisplayName.Text = (!String.IsNullOrEmpty(Client.MySnapchat.FriendsList[i].Display)
-                    ? Client.MySnapchat.FriendsList[i].Display
-                    : Client.MySnapchat.FriendsList[i].Name);
-                item.StoryImage.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/SnapchatStory.jpg"));
+                item.DisplayName.Text = (!String.IsNullOrEmpty(Client.Snapchat.FriendsList[i].Display)
+                    ? Client.Snapchat.FriendsList[i].Display
+                    : Client.Snapchat.FriendsList[i].Name);
+                //if(Client.MySnapchat.Friends.FirstOrDefault(x => x.Name == item.Name).sharedStoryId > 0)
+                    item.StoryImage.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/SnapchatStory.jpg"));
                 friendsListBox.Items.Add(item);
             }
         }

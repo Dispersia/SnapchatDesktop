@@ -6,8 +6,8 @@
              xmlns:local="clr-namespace:SnapchatDesktop.Interface.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="50" d:DesignWidth="200">
-    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-        <Line Stroke="Black" X1="55" Y1="1" X2="195" Y2="1" VerticalAlignment="Top" HorizontalAlignment="Stretch"/>
+    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Transparent">
+        <Line Stroke="Black" X1="55" Y1="1" X2="195" Y2="1" VerticalAlignment="Top" HorizontalAlignment="Stretch" StrokeThickness=".2"/>
         <Image x:Name="StoryImage" Width="50" Height="50" HorizontalAlignment="Left" VerticalAlignment="top"/>
         <Label VerticalAlignment="Center" HorizontalAlignment="Left" Margin="50, 5, 0, 0" Foreground="Black">
             <TextBlock x:Name="DisplayName" Margin="0,-7,0,0">
