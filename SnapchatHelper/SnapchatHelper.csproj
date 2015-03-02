@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HttpHelper.cs" />
     <Compile Include="JSONObjects\bq\AddedFriend.cs" />
     <Compile Include="JSONObjects\bq\bqCommands.cs" />
     <Compile Include="JSONObjects\bq\FeatureSettings.cs" />
@@ -81,15 +82,15 @@
     <Compile Include="JSONObjects\loq\UserChatReleases.cs" />
     <Compile Include="JSONObjects\loq\UserSequences.cs" />
     <Compile Include="JSONObjects\loq\UserSnapReleases.cs" />
+    <Compile Include="JSONObjects\ph\phCommands.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Snapchat.cs" />
+    <Compile Include="SnapchatCommands.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="JSONObjects\ph\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

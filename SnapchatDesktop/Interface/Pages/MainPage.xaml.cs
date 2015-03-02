@@ -20,16 +20,16 @@ namespace SnapchatDesktop.Pages
             if (Client.Snapchat.friendsResponse.Friends != null)
             {
                 Client.Snapchat.friendsResponse.Friends = Client.Snapchat.friendsResponse.Friends.OrderBy(x =>
-                    (!String.IsNullOrEmpty(x.Display)
+                    (!string.IsNullOrEmpty(x.Display)
                             ? x.Display
                             : x.Name)).ToList();
 
                 for (int i = 0; i < Client.Snapchat.FriendsList.Count; i++)
                 {
                     UserListItem item = new UserListItem();
-                    item.DisplayName.Text = (!String.IsNullOrEmpty(Client.Snapchat.FriendsList[i].Display)
+                    item.DisplayName.Text = !string.IsNullOrEmpty(Client.Snapchat.FriendsList[i].Display)
                         ? Client.Snapchat.FriendsList[i].Display
-                        : Client.Snapchat.FriendsList[i].Name);
+                        : Client.Snapchat.FriendsList[i].Name;
                     item.StoryImage.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/SnapchatStory.jpg"));
                     friendsListBox.Items.Add(item);
                 }
@@ -37,14 +37,14 @@ namespace SnapchatDesktop.Pages
             else
             {
                 Client.Snapchat.FriendsList = Client.Snapchat.FriendsList.OrderBy(x =>
-                    (!String.IsNullOrEmpty(x.Display)
+                    (!string.IsNullOrEmpty(x.Display)
                             ? x.Display
                             : x.Name)).ToList();
 
                 for (int i = 0; i < Client.Snapchat.FriendsList.Count; i++)
                 {
                     UserListItem item = new UserListItem();
-                    item.DisplayName.Text = (!String.IsNullOrEmpty(Client.Snapchat.FriendsList[i].Display)
+                    item.DisplayName.Text = (!string.IsNullOrEmpty(Client.Snapchat.FriendsList[i].Display)
                         ? Client.Snapchat.FriendsList[i].Display
                         : Client.Snapchat.FriendsList[i].Name);
                     item.StoryImage.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/SnapchatStory.jpg"));
@@ -53,9 +53,12 @@ namespace SnapchatDesktop.Pages
             }
         }
 
-        private void CaptureButton_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private async void CaptureButton_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            Debug.WriteLine("Captured!");
+            if (await Client.Snapchat.Logout(Client.Snapchat))
+                MessageBox.Show("Logged Out");
+            else
+                MessageBox.Show("Failed to logout.");
         }
 
         private void ViewSnap_Click(object sender, RoutedEventArgs e)

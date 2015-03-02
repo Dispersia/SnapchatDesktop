@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SnapchatHelper
 {
-    public class Snapchat
+    public partial class Snapchat
     {
         #region bqproperties
         [JsonProperty("message")]
@@ -165,24 +165,5 @@ namespace SnapchatHelper
         [JsonProperty("background_fetch_secret_key")]
         public string backgroundFetchSecretKey { get; set; }
         #endregion
-
-        public static async Task<Snapchat> bqLogin(string username, string password)
-        {
-            var json = await bqCommands.Login(username, password);
-
-            if (!string.IsNullOrEmpty(json))
-            {
-                return JsonConvert.DeserializeObject<Snapchat>(json);
-            }
-            else
-            {
-                Snapchat snapchat = new Snapchat()
-                {
-                    Message = "Failed.",
-                    Logged = false
-                };
-                return snapchat;
-            }
-        }
     }
 }

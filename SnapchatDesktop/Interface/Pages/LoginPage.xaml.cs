@@ -35,7 +35,7 @@ namespace SnapchatDesktop.Pages
 
                 await Dispatcher.BeginInvoke(DispatcherPriority.Input, new ThreadStart(async() =>
                 {
-                    Client.Snapchat = await Snapchat.bqLogin(UsernameBox.Text, PasswordBox.Password);
+                    Client.Snapchat = await Snapchat.Login(UsernameBox.Text, PasswordBox.Password);
                     if (Client.Snapchat.Logged)
                     {
                         Client.SetPage(new MainPage());
