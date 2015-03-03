@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,18 +13,34 @@ namespace SnapchatHelper
     class HttpHelper
     {
         public const string
-            SnapVersion = "9.1.2.0",
+            SnapVersion = "9.2.0.0",
             BaseUrl = "https://feelinsonice-hrd.appspot.com",
             Static_Token = "m198sOkJEn37DjqZ32lpRu76xmw288xSQ9",
-            User_Agent = "Snapchat/" + SnapVersion + " (Nexus 4; Android 18; gzip)",
+            User_Agent = "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36",
             Secret_Token = "iEk21fuwZApXlz93750dmW22pw389dPwOk",
             Pattern = "0001110111101110001111010101111011010001001110011000110001000110";
-        private static DateTime nix = new DateTime(1970, 1, 1);
+
+        private static HttpClient client;
+
+        static HttpHelper()
+        {
+            client = new HttpClient(new HttpClientHandler() { Proxy = null });
+            client.DefaultRequestHeaders.Add("Accept", "*/*");
+            client.DefaultRequestHeaders.Add("Accept-Language", "en-US;q=1, en;q=0.9");
+            client.DefaultRequestHeaders.Add("Accept-Locale", "en");
+            client.DefaultRequestHeaders.Add("User-Agent", User_Agent);
+        }
+
+        public static async Task<string> post(string path, HttpContent postData)
+        {
+            var response = await client.PostAsync(string.Format("{0}{1}", BaseUrl, path), postData);
+
+            return await response.Content.ReadAsStringAsync();
+        }
 
         public static string generateTimestamp()
         {
-            TimeSpan span = DateTime.Now - nix;
-            return (span.TotalSeconds * 1000).ToString(CultureInfo.InvariantCulture).Substring(0, 13);
+            return (DateTime.Now.Millisecond / 1000).ToString();
         }
 
         public static string generateToken(string timestamp)

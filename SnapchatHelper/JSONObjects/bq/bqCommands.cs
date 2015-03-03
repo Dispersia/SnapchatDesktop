@@ -28,23 +28,10 @@ namespace SnapchatHelper.JSONObjects.bq
                 { "req_token", HttpHelper.generateToken(timestamp) }
             };
 
-            var client = new HttpClient(new HttpClientHandler
-            {
-                Proxy = null
-            }, true);
+            var responseString = await HttpHelper.post(Location + "login", new FormUrlEncodedContent(postData));
 
-            client.DefaultRequestHeaders.Add("Accept", "*/*");
-            client.DefaultRequestHeaders.Add("Accept-Language", "en-US;q=1, en;q=0.9");
-            client.DefaultRequestHeaders.Add("Accept-Locale", "en");
-            client.DefaultRequestHeaders.Add("User-Agent", HttpHelper.User_Agent);
-
-            var response = await client.PostAsync(HttpHelper.BaseUrl + Location + "login", new FormUrlEncodedContent(postData));
-            response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/x-www-form-urlencoded");
-
-            var ResponseString = await response.Content.ReadAsStringAsync();
-
-            if (!string.IsNullOrEmpty(ResponseString))
-                return ResponseString;
+            if (!string.IsNullOrEmpty(responseString))
+                return responseString;
 
             return string.Empty;
         }

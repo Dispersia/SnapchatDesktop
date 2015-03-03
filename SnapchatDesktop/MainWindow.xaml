@@ -8,6 +8,7 @@
 		mc:Ignorable="d"
 		Title="Snapchat for Desktop" Height="500" Width="700"
 		MinHeight="500" MinWidth="700" Icon="Ghost.ico"
-		Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" WindowStartupLocation="CenterScreen">
+		Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" WindowStartupLocation="CenterScreen"
+                      Closing="MetroWindow_Closing">
     
 </Controls:MetroWindow>

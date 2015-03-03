@@ -11,6 +11,7 @@ using System.IO;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Threading;
+using System.Runtime.InteropServices;
 
 namespace SnapchatDesktop.Pages
 {
@@ -28,7 +29,8 @@ namespace SnapchatDesktop.Pages
             webcamCollection = new FilterInfoCollection(FilterCategory.VideoInputDevice);
             webcam = new VideoCaptureDevice(webcamCollection[0].MonikerString);
             webcam.NewFrame += Webcam_NewFrame;
-
+            webcam.Start();
+            /*
             if (Client.Snapchat.friendsResponse.Friends != null)
             {
                 Client.Snapchat.friendsResponse.Friends = Client.Snapchat.friendsResponse.Friends.OrderBy(x =>
@@ -62,7 +64,12 @@ namespace SnapchatDesktop.Pages
                     item.StoryImage.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/SnapchatStory.jpg"));
                     friendsListBox.Items.Add(item);
                 }
-            }
+            }*/
+        }
+
+        public void StopCamera()
+        {
+            webcam.Stop();
         }
 
         private void Webcam_NewFrame(object sender, NewFrameEventArgs eventArgs)
@@ -83,12 +90,17 @@ namespace SnapchatDesktop.Pages
             }));
         }
 
-        private async void CaptureButton_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void CaptureButton_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            if (await Client.Snapchat.Logout(Client.Snapchat))
-                MessageBox.Show("Logged Out");
-            else
-                MessageBox.Show("Failed to logout.");
+            if(webcamCapture.Source != null)
+            {
+                Bitmap image = getBitmap((BitmapSource)webcamCapture.Source);
+                image.Save("capture.png", ImageFormat.Png);
+                webcam.NewFrame -= Webcam_NewFrame;
+                webcamCapture.Source = new BitmapImage(new Uri("capture.png", UriKind.Relative));
+                image.Dispose();
+                image = null;
+            }
         }
 
         private void ViewSnap_Click(object sender, RoutedEventArgs e)
@@ -99,6 +111,31 @@ namespace SnapchatDesktop.Pages
         private void SendMessage_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        /// <source>
+        /// http://stackoverflow.com/questions/5689674/c-sharp-convert-wpf-image-source-to-a-system-drawing-bitmap
+        /// </source>
+        public static Bitmap getBitmap(BitmapSource srs)
+        {
+            int width = srs.PixelWidth;
+            int height = srs.PixelHeight;
+            int stride = width * ((srs.Format.BitsPerPixel + 7) / 8);
+            IntPtr ptr = IntPtr.Zero;
+            try
+            {
+                ptr = Marshal.AllocHGlobal(height * stride);
+                srs.CopyPixels(new Int32Rect(0, 0, width, height), ptr, height * stride, stride);
+                using (var btm = new Bitmap(width, height, stride, PixelFormat.Format1bppIndexed, ptr))
+                {
+                    return new Bitmap(btm);
+                }
+            }
+            finally
+            {
+                if (ptr != IntPtr.Zero)
+                    Marshal.FreeHGlobal(ptr);
+            }
         }
     }
 }
