@@ -6,5 +6,5 @@ tip, if you want to make a project like this, don't change your user-agent to a 
 
 #### Dead
 
-[Death](http://i.imgur.com/kemJplf.png)
+![Death](http://i.imgur.com/kemJplf.png)
 
